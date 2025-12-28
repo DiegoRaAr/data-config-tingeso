@@ -1,10 +1,25 @@
 server:
   port: ${PORT:${SERVER_PORT:0}}
+
+spring:
+  datasource:
+    url: jdbc:mysql://mysql:3306/bd_microservice_tool
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
 eureka:
   client:
     fetch-registry: true
     register-with-eureka: true
     service-url:
-      default-zone: http://localhost:8761/eureka
+      defaultZone: http://eureka-service:8761/eureka/
   instance:
-    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: false
+    hostname: tool-service
